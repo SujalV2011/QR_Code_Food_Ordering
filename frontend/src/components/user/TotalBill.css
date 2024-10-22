@@ -1,0 +1,13 @@
+.contact-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  
+  .contact-box {
+    width: 250px; /* Adjust size as needed */
+    box-shadow: none; /* Remove shadow if any */
+    border: 1px solid #ced4da; /* Default border color */
+   
+  }
+  

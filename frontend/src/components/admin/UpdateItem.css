@@ -1,0 +1,26 @@
+/* Centering the form and adding a theme
+.container {
+    max-width: 600px;
+    background-color: #F8F9FA;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    color: #1F618D;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #1F618D;
+    margin-bottom: 20px;
+  }
+  
+  .form-label, .form-check-label {
+    color: #1F618D;
+  }
+  
+  .button {
+    background-color: #1F618D;
+    border-color: #1F618D;
+    width: 100%;
+  }
+   */

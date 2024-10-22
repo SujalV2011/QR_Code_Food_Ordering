@@ -1,0 +1,10 @@
+.cafe-logo {
+    max-height: 40px; /* Adjust the height as needed */
+    width: auto; /* Maintain aspect ratio */
+  }
+  .navbar-title {
+    color:#1F618D;
+    font-weight: bold;
+  }
+  /* NavBar.css */
+

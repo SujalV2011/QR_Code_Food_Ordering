@@ -1,0 +1,15 @@
+/* Summary.css */
+.summary-card {
+    margin-right: 20px;
+    padding: 10px;
+    background-color: #ffffff; /* Ensure a consistent background color */
+    box-shadow: none; /* Ensure no box shadow by default */
+  }
+  
+  .summary-card:hover,
+  .no-hover:hover {
+    background-color: #ffffff !important; /* Remove any hover effect */
+    box-shadow: none !important; /* Remove any box shadow on hover */
+    transform: none !important; /* Prevent any transformation on hover */
+  }
+  

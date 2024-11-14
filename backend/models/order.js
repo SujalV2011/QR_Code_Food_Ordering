@@ -9,6 +9,10 @@ const OrderSchema = new mongoose.Schema({
       option: String,  
     }
   ],
+  approve: {
+    type: Boolean,
+    default: false,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

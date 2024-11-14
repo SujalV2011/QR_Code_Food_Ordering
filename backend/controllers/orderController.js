@@ -47,7 +47,7 @@ const placeOrder = async (req, res) => {
   }
 };
 
-// Function to get the total bill for a specific table number
+// Function to get the total bill for a specific table number 
 const getTotalBill = async (req, res) => {
   try {
     const { tableNumber = 1 } = req.params; // Default to table 1 if no table number is provided
@@ -85,4 +85,64 @@ const getTotalBill = async (req, res) => {
   }
 };
 
-module.exports = { placeOrder, getTotalBill };
+// New function to approve an order
+const approveOrder = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+
+    // Find the order model based on the collection name pattern
+    const OrderModel = mongoose.model('order', Order.schema);
+
+    // Find and update the order's approval status
+    const order = await OrderModel.findByIdAndUpdate(
+      orderId,
+      { approve: true },
+      { new: true }
+    );
+
+    if (!order) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
+
+    return res.status(200).json({ message: 'Order approved successfully', order });
+  } catch (error) {
+    return res.status(500).json({ error: 'Failed to approve order', details: error.message });
+  }
+};
+
+const getAllTableOrders = async (req, res) => {
+  try {
+    const tableNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // List of table numbers (modify as needed)
+    const allOrders = [];
+
+    // Iterate through each table number to dynamically fetch orders
+    for (let tableNumber of tableNumbers) {
+      const tableCollectionName = `table_${tableNumber}`; // Dynamic collection name for each table
+      const OrderModel = mongoose.model(tableCollectionName, Order.schema); // Dynamically access the model
+
+      // Find the order for this table
+      const order = await OrderModel.findOne({ tableNumber: tableNumber });
+
+      // If the order exists for this table, add it to the results
+      if (order) {
+        allOrders.push({
+          tableNumber: tableNumber, // Include the table number
+          items: order.items,
+          approve: order.approve,
+          createdAt: order.createdAt,
+        });
+      }
+    }
+
+    if (allOrders.length === 0) {
+      return res.status(404).json({ message: 'No orders found for any table' });
+    }
+
+    return res.status(200).json({ orders: allOrders }); // Return the orders array in the response
+  } catch (error) {
+    console.error('Error fetching orders:', error); // Log the error to debug
+    return res.status(500).json({ error: 'Failed to fetch orders', details: error.message });
+  }
+};
+
+module.exports = { placeOrder, getTotalBill, approveOrder, getAllTableOrders };

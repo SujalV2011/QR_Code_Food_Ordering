@@ -60,17 +60,6 @@ const Admin = () => {
     setShowModal(true);
   };
 
-  const handleApprove = async (orderId) => {
-    if (!selectedOrder) return;
-    try {
-      await axios.put(`http://localhost:5000/api/orders/${orderId}/approve`);
-      console.log(`Order ${orderId} approved`);
-      setShowModal(false);
-      fetchAllOrders();
-    } catch (error) {
-      console.error('Error approving order:', error);
-    }
-  };
 
   const handleEditQuantity = (index, quantity) => {
     if (quantity < 0) return;
@@ -79,14 +68,14 @@ const Admin = () => {
 
   const handleSaveChanges = async () => {
     if (!selectedOrder || newQuantity === null) return;
-
+  
     const updatedItems = selectedOrder.items.map((item, index) =>
       index === newQuantity.index ? { ...item, quantity: newQuantity.quantity } : item
     );
     const updatedOrder = { ...selectedOrder, items: updatedItems };
-
+  
     try {
-      await axios.put(`http://localhost:5000/api/orders/${selectedOrder._id}`, updatedOrder);
+      await axios.put(`http://localhost:5000/api/orders/${selectedOrder.tableNumber}`, updatedOrder);
       console.log('Quantity updated:', newQuantity.quantity);
       setShowModal(false);
       fetchAllOrders();
@@ -94,6 +83,20 @@ const Admin = () => {
       console.error('Error saving changes:', error);
     }
   };
+  
+  const handleApprove = async () => {
+    if (!selectedOrder) return;
+    try {
+      await axios.put(`http://localhost:5000/api/orders/${selectedOrder.tableNumber}/approve`);
+      console.log(`Order for table ${selectedOrder.tableNumber} approved`);
+      setShowModal(false);
+      fetchAllOrders();
+    } catch (error) {
+      console.error('Error approving order:', error);
+    }
+  };
+  
+  
 
   const handleRemoveItem = async (index) => {
     if (!selectedOrder) return;

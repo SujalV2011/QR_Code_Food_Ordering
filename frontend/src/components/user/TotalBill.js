@@ -19,7 +19,7 @@ const TotalBill = () => {
   useEffect(() => {
     const fetchTotalBill = async () => {
       try {
-        const tableNumber = 1; // Default to table 1; can be made dynamic if needed
+        const tableNumber = 8; // Default to table 1; can be made dynamic if needed
         const response = await axios.get(
           `http://localhost:5000/api/orders/${tableNumber}`
         );
